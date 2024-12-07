@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>FreshBasket - Your Online Store for Fresh Produce</h1>
+<form action="{{ url_for('search') }}" method="get">
+    <input type="text" name="q" placeholder="Search for products">
+    <button type="submit">Search</button>
+</form>
+<div class="products">
+    {% for product in products %}
+    <div class="product-card">
+        <h2>{{ product.name }}</h2>
+        <p>Price: ${{ product.price }}</p>
+        <form action="{{ url_for('add_to_cart') }}" method="post">
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
